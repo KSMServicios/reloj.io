@@ -16,25 +16,28 @@
             <span id="hora-actual">00:00:00</span>
             <div id="fecha-actual">Día, 00 de Mes de 2024</div>
         </div>
-
-        <div id="clima-widget" class="clima-card">
-            <h2 id="ubicacion-nombre">Cargando ubicación...</h2>
-            <div class="clima-info">
-                <span id="icono-clima" class="clima-icon">...</span> 
-                <p id="temperatura" class="temp-display">-- °C</p>
+        
+        <div id="widgets-clima-group">
+            
+            <div id="clima-widget" class="clima-card">
+                <h2 id="ubicacion-nombre">Cargando ubicación...</h2>
+                <div class="clima-info">
+                    <span id="icono-clima" class="clima-icon">...</span>
+                    <p id="temperatura" class="temp-display">-- °C</p>
+                </div>
+                <p id="descripcion-clima" class="clima-desc">Cargando...</p>
+                <p id="velocidad-viento" class="viento-info">Viento: -- km/h</p>
+                
+                <div id="pronostico-actual" class="pronostico-extendido"></div>
             </div>
-            <p id="descripcion-clima" class="clima-desc">Cargando...</p>
-            <p id="velocidad-viento" class="viento-info">Viento: -- km/h</p>
-            
-            <div id="pronostico-actual" class="pronostico-extendido"></div>
-        </div>
 
-        <div id="sajaroff-widget" class="clima-card clima-secundario">
-            <h2 id="sajaroff-nombre">Ingeniero Sajaroff</h2>
-            <p id="sajaroff-temp" class="temp-display">-- °C</p> 
-            <p id="sajaroff-desc" class="clima-desc">Cargando...</p>
-            
-            <div id="sajaroff-pronostico" class="pronostico-extendido"></div>
+            <div id="sajaroff-widget" class="clima-card clima-secundario">
+                <h2 id="sajaroff-nombre">Ingeniero Sajaroff</h2>
+                <p id="sajaroff-temp" class="temp-display">-- °C</p>
+                <p id="sajaroff-desc" class="clima-desc">Cargando...</p>
+                
+                <div id="sajaroff-pronostico" class="pronostico-extendido"></div>
+            </div>
         </div>
     </div>
 
