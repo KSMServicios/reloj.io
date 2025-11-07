@@ -1,0 +1,94 @@
+/* Archivo: style.css */
+
+/* 1. Reset Básico y Fondo */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    min-height: 100vh;
+    background-color: #2c3e50; /* Fondo oscuro */
+    color: #ecf0f1; /* Texto claro */
+    font-family: Arial, sans-serif;
+    flex-direction: column;
+}
+
+/* 2. Contenedor Principal de los Widgets */
+#contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #34495e;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. Estilos del Reloj Grande */
+#reloj-widget {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+#hora-actual {
+    font-family: 'Orbitron', monospace; /* Usar la fuente futurista */
+    font-size: 5rem; /* Reloj muy grande */
+    font-weight: 600;
+    color: #4CAF50; /* Color verde brillante para el reloj */
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.7); /* Efecto neón */
+}
+
+#fecha-actual {
+    font-size: 1.2rem;
+    color: #bdc3c7;
+    margin-top: -10px; /* Acercar la fecha a la hora */
+}
+
+/* 4. Estilos del Widget de Clima */
+#clima-widget {
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #3d5167; /* Separador sutil */
+    width: 100%;
+    max-width: 300px;
+}
+
+#ubicacion-nombre {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+    color: #e74c3c; /* Color de énfasis para la ubicación */
+}
+
+#temperatura {
+    font-size: 3rem; /* Temperatura destacada */
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+#descripcion-clima {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+#icono-clima {
+    width: 60px; /* Tamaño del ícono de clima */
+    height: 60px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+#velocidad-viento {
+    font-size: 0.9rem;
+    color: #bdc3c7;
+}
+
+/* 5. Media Query para pantallas pequeñas */
+@media (max-width: 600px) {
+    #hora-actual {
+        font-size: 3.5rem;
+    }
+    #temperatura {
+        font-size: 2.5rem;
+    }
+}

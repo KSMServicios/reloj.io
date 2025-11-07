@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj y Clima Local</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="contenedor-principal">
+        <div id="reloj-widget">
+            <span id="hora-actual">00:00:00</span>
+            <div id="fecha-actual">Día, 00 de Mes de 2024</div>
+        </div>
+
+        <div id="clima-widget">
+            <h2 id="ubicacion-nombre">Cargando ubicación...</h2>
+            <p id="temperatura">-- °C</p>
+            <p id="descripcion-clima">Cargando...</p>
+            <img id="icono-clima" src="" alt="Icono de clima">
+            <p id="velocidad-viento">Viento: -- km/h</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
