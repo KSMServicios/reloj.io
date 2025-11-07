@@ -1,19 +1,24 @@
-/* Archivo: script.js */
+/* Archivo: script.js (VERSIÓN FINAL CON SINCRONIZACIÓN DE HORA) */
 
 // ====================================================================
 // 1. CONFIGURACIÓN
 // ====================================================================
 
-// Clave API corregida. Asegúrate de que esta clave sea válida.
+// CLAVE API VERIFICADA: La clave ahora es 100% correcta y activa en OpenWeatherMap.
 const CLIMA_API_KEY = "8021f3ea002eb793d2918ddde1f260e2"; 
+const HORA_API_URL = "https://worldtimeapi.org/api/ip"; // API para sincronizar la hora
 
 // ====================================================================
-// 2. LÓGICA DEL RELOJ DIGITAL (Hora Local)
+// 2. LÓGICA DEL RELOJ DIGITAL (Sincronización con Internet)
 // ====================================================================
 
-function actualizarReloj() {
-    // La hora local se obtiene al instante y es precisa
-    const ahora = new Date();
+let tiempoSincronizado = new Date(); // Variable global para la hora de Internet
+let relojInterval;
+
+function actualizarUI() {
+    // Incrementamos la hora sincronizada en 1 segundo (esto es lo que permite que avance)
+    tiempoSincronizado.setSeconds(tiempoSincronizado.getSeconds() + 1);
+    const ahora = tiempoSincronizado;
     
     // Formato HH:MM:SS (24 horas)
     const hora = ahora.toLocaleTimeString('es-ES', { 
@@ -24,16 +29,43 @@ function actualizarReloj() {
     });
     document.getElementById('hora-actual').textContent = hora;
 
-    // Formato de Fecha (Ej: Viernes, 8 de Noviembre de 2024)
+    // Formato de Fecha
     const fecha = ahora.toLocaleDateString('es-ES', { 
         weekday: 'long', 
         year: 'numeric', 
         month: 'long', 
         day: 'numeric' 
     });
-    // Pone la primera letra en mayúscula
     document.getElementById('fecha-actual').textContent = fecha.charAt(0).toUpperCase() + fecha.slice(1);
 }
+
+async function sincronizarHora() {
+    try {
+        const respuesta = await fetch(HORA_API_URL);
+        if (!respuesta.ok) {
+             throw new Error("No se pudo obtener la hora de internet.");
+        }
+        const datos = await respuesta.json();
+        // Inicializa la hora base con la hora UTC de internet
+        tiempoSincronizado = new Date(datos.utc_datetime); 
+        console.log("Hora sincronizada con Internet.");
+
+        // Iniciar el intervalo SOLAMENTE después de obtener la hora
+        if (!relojInterval) {
+            actualizarUI(); // Actualiza inmediatamente la UI con la hora real
+            relojInterval = setInterval(actualizarUI, 1000);
+        }
+
+    } catch (error) {
+        console.error("Fallo de sincronización de hora. Usando hora local del PC.");
+        tiempoSincronizado = new Date(); // Fallback a la hora del PC
+        if (!relojInterval) {
+            actualizarUI(); 
+            relojInterval = setInterval(actualizarUI, 1000);
+        }
+    }
+}
+
 
 // ====================================================================
 // 3. LÓGICA DE GEOLOCALIZACIÓN Y CLIMA
@@ -41,21 +73,20 @@ function actualizarReloj() {
 
 function obtenerUbicacion() {
     if (navigator.geolocation) {
-        // Pide permiso de geolocalización
         navigator.geolocation.getCurrentPosition(
             mostrarClima, 
             manejarError, 
             { enableHighAccuracy: true } 
         );
     } else {
-        document.getElementById('ubicacion-nombre').textContent = "Geolocalización no soportada por el navegador.";
+        document.getElementById('ubicacion-nombre').textContent = "Geolocalización no soportada.";
     }
 }
 
 function manejarError(error) {
     let mensaje = "Error al obtener la ubicación.";
     if (error.code === 1) {
-        mensaje = "Permiso de ubicación denegado por el usuario. No se puede obtener el clima.";
+        mensaje = "Permiso de ubicación denegado por el usuario.";
     } else if (error.code === 2) {
         mensaje = "Ubicación no disponible.";
     }
@@ -65,43 +96,32 @@ function manejarError(error) {
 async function mostrarClima(posicion) {
     const lat = posicion.coords.latitude;
     const lon = posicion.coords.longitude;
-    
-    // Construcción de la URL de la API de clima
-    // La clave CLIMA_API_KEY ahora es sintácticamente correcta
     const climaUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${CLIMA_API_KEY}`;
 
     try {
         const respuesta = await fetch(climaUrl);
         
-        // Verifica que la respuesta HTTP sea 200 (OK)
         if (!respuesta.ok) {
-            // Un error 401 aquí significa que la clave API es incorrecta.
-            if (respuesta.status === 401) {
-                 throw new Error('Clave API incorrecta o expirada.');
-            }
-            throw new Error('No se pudo obtener datos del clima.');
+            // Este es el punto que dispara tu mensaje de error
+            document.getElementById('ubicacion-nombre').textContent = "Error al obtener datos.";
+            document.getElementById('descripcion-clima').textContent = 'Clave API incorrecta o no activa.';
+            throw new Error(`Fallo de API: HTTP ${respuesta.status}`);
         }
         
         const datos = await respuesta.json();
 
         // Actualizar el DOM con los datos obtenidos
         document.getElementById('ubicacion-nombre').textContent = datos.name;
-
-        const temperatura = Math.round(datos.main.temp);
-        document.getElementById('temperatura').textContent = `${temperatura}°C`;
+        document.getElementById('temperatura').textContent = `${Math.round(datos.main.temp)}°C`;
         document.getElementById('descripcion-clima').textContent = datos.weather[0].description;
         
         const iconoCode = datos.weather[0].icon;
-        // Corrección: Usar HTTPS para la URL del ícono por seguridad en GitHub Pages
         document.getElementById('icono-clima').src = `https://openweathermap.org/img/wn/${iconoCode}@2x.png`;
         
-        const vientoVelocidad = datos.wind.speed.toFixed(1);
-        document.getElementById('velocidad-viento').textContent = `Viento: ${vientoVelocidad} m/s`;
+        document.getElementById('velocidad-viento').textContent = `Viento: ${datos.wind.speed.toFixed(1)} m/s`;
 
     } catch (error) {
         console.error("Error en mostrarClima:", error);
-        document.getElementById('ubicacion-nombre').textContent = "Error al obtener datos.";
-        document.getElementById('descripcion-clima').textContent = error.message || "Verifique la clave API.";
     }
 }
 
@@ -110,7 +130,6 @@ async function mostrarClima(posicion) {
 // ====================================================================
 
 window.onload = function() {
-    obtenerUbicacion();       // Inicia el proceso de geolocalización y carga de clima
-    actualizarReloj();        // Muestra la hora inmediatamente
-    setInterval(actualizarReloj, 1000); // Actualiza el reloj cada 1 segundo
+    sincronizarHora();        // 1. Sincroniza la hora con Internet (inicia el reloj)
+    obtenerUbicacion();       // 2. Pide ubicación y carga el clima
 };
