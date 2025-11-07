@@ -4,8 +4,8 @@
 // 1. CONFIGURACIÓN
 // ====================================================================
 
-// Reemplaza "TU_CLAVE_DE_OPENWEATHERMAP" con tu clave API
-const CLIMA_API_KEY = "8021f3ea002eb793d2918ddde1f260e2; 
+// Clave API corregida. Asegúrate de que esta clave sea válida.
+const CLIMA_API_KEY = "8021f3ea002eb793d2918ddde1f260e2"; 
 
 // ====================================================================
 // 2. LÓGICA DEL RELOJ DIGITAL (Hora Local)
@@ -67,13 +67,21 @@ async function mostrarClima(posicion) {
     const lon = posicion.coords.longitude;
     
     // Construcción de la URL de la API de clima
+    // La clave CLIMA_API_KEY ahora es sintácticamente correcta
     const climaUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${CLIMA_API_KEY}`;
 
     try {
         const respuesta = await fetch(climaUrl);
+        
+        // Verifica que la respuesta HTTP sea 200 (OK)
         if (!respuesta.ok) {
-            throw new Error('La clave API no es válida o hay un problema con la respuesta.');
+            // Un error 401 aquí significa que la clave API es incorrecta.
+            if (respuesta.status === 401) {
+                 throw new Error('Clave API incorrecta o expirada.');
+            }
+            throw new Error('No se pudo obtener datos del clima.');
         }
+        
         const datos = await respuesta.json();
 
         // Actualizar el DOM con los datos obtenidos
@@ -84,15 +92,16 @@ async function mostrarClima(posicion) {
         document.getElementById('descripcion-clima').textContent = datos.weather[0].description;
         
         const iconoCode = datos.weather[0].icon;
-        document.getElementById('icono-clima').src = `http://openweathermap.org/img/wn/${iconoCode}@2x.png`;
+        // Corrección: Usar HTTPS para la URL del ícono por seguridad en GitHub Pages
+        document.getElementById('icono-clima').src = `https://openweathermap.org/img/wn/${iconoCode}@2x.png`;
         
         const vientoVelocidad = datos.wind.speed.toFixed(1);
         document.getElementById('velocidad-viento').textContent = `Viento: ${vientoVelocidad} m/s`;
 
     } catch (error) {
-        console.error("Error al obtener datos del clima:", error);
-        document.getElementById('ubicacion-nombre').textContent = "Error de API o clave incorrecta.";
-        document.getElementById('descripcion-clima').textContent = "No se pudo cargar el clima.";
+        console.error("Error en mostrarClima:", error);
+        document.getElementById('ubicacion-nombre').textContent = "Error al obtener datos.";
+        document.getElementById('descripcion-clima').textContent = error.message || "Verifique la clave API.";
     }
 }
 
