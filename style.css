@@ -10,25 +10,30 @@ body {
     min-height: 100vh;
     background-color: #2c3e50; /* Fondo oscuro */
     color: #ecf0f1; /* Texto claro */
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     flex-direction: column;
 }
 
 /* 2. Contenedor Principal de los Widgets */
 #contenedor-principal {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Por defecto, en columna */
     align-items: center;
     padding: 30px;
     background-color: #34495e;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 700px;
 }
 
 /* 3. Estilos del Reloj Grande */
 #reloj-widget {
     text-align: center;
     margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #3d5167; /* Separador */
+    width: 100%;
 }
 
 #hora-actual {
@@ -37,58 +42,130 @@ body {
     font-weight: 600;
     color: #4CAF50; /* Color verde brillante para el reloj */
     text-shadow: 0 0 10px rgba(76, 175, 80, 0.7); /* Efecto neón */
+    display: block; 
 }
 
 #fecha-actual {
     font-size: 1.2rem;
     color: #bdc3c7;
-    margin-top: -10px; /* Acercar la fecha a la hora */
+    margin-top: -10px; 
 }
 
-/* 4. Estilos del Widget de Clima */
-#clima-widget {
+/* 4. Estilos de los Widgets de Clima */
+.clima-card {
     text-align: center;
     padding: 20px;
-    border-top: 2px solid #3d5167; /* Separador sutil */
+    border-top: 2px solid #3d5167; 
     width: 100%;
-    max-width: 300px;
+    margin-top: 20px;
+    border-radius: 10px;
 }
 
-#ubicacion-nombre {
+#clima-widget {
+    background-color: #3d5167; /* Fondo sutilmente diferente para el widget principal */
+}
+
+/* Estilo para el widget secundario de Sajaroff */
+.clima-secundario {
+    background-color: #2c3e50; /* Fondo más oscuro para distinguir */
+    border: 1px solid #e74c3c;
+}
+
+#ubicacion-nombre, #sajaroff-nombre {
     font-size: 1.6rem;
     margin-bottom: 5px;
     color: #e74c3c; /* Color de énfasis para la ubicación */
 }
 
-#temperatura {
-    font-size: 3rem; /* Temperatura destacada */
-    font-weight: bold;
-    margin: 5px 0;
+.clima-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
 }
 
-#descripcion-clima {
+.temp-display {
+    font-size: 3rem; /* Temperatura destacada */
+    font-weight: bold;
+    margin: 0;
+    line-height: 1;
+}
+
+.clima-icon {
+    font-size: 3.5rem; /* El tamaño del ícono (emoji) */
+    margin-right: 15px;
+    line-height: 1;
+}
+
+.clima-desc {
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
-#icono-clima {
-    width: 60px; /* Tamaño del ícono de clima */
-    height: 60px;
-    display: block;
-    margin: 0 auto 10px;
-}
-
-#velocidad-viento {
+.viento-info {
     font-size: 0.9rem;
     color: #bdc3c7;
 }
 
-/* 5. Media Query para pantallas pequeñas */
+/* 5. Estilos para Pronóstico Extendido */
+.pronostico-extendido {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #546a7f;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.pronostico-extendido h4 {
+    margin: 0 0 8px 0;
+    color: #f1c40f; /* Amarillo para el título del pronóstico */
+    font-weight: bold;
+}
+
+.pronostico-extendido ul {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+}
+
+.pronostico-extendido li {
+    margin-bottom: 5px;
+    color: #ecf0f1;
+    border-left: 3px solid #f1c40f; /* Detalle amarillo */
+    padding-left: 8px;
+}
+
+/* 6. Media Query para pantallas grandes (Columna de Clima) */
+@media (min-width: 650px) {
+    #contenedor-principal {
+        flex-direction: row; /* En desktop, mostrar en fila */
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 20px;
+    }
+
+    #reloj-widget {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .clima-card {
+        flex: 1 1 45%; /* Cada widget ocupa casi la mitad */
+        max-width: 45%;
+        margin: 10px 0;
+        border-top: none; 
+    }
+}
+
+/* 7. Media Query para pantallas pequeñas */
 @media (max-width: 600px) {
     #hora-actual {
         font-size: 3.5rem;
     }
-    #temperatura {
+    .temp-display {
         font-size: 2.5rem;
+    }
+    .clima-icon {
+        font-size: 3rem;
     }
 }
