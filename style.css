@@ -5,11 +5,11 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
+    justify-content: center; 
+    align-items: center; 
     min-height: 100vh;
-    background-color: #2c3e50; /* Fondo oscuro */
-    color: #ecf0f1; /* Texto claro */
+    background-color: #2c3e50; 
+    color: #ecf0f1; 
     font-family: 'Arial', sans-serif;
     flex-direction: column;
 }
@@ -17,14 +17,14 @@ body {
 /* 2. Contenedor Principal de los Widgets */
 #contenedor-principal {
     display: flex;
-    flex-direction: column; /* Por defecto, en columna para móviles */
+    flex-direction: column; 
     align-items: center;
     padding: 30px;
     background-color: #34495e;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
     width: 90%;
-    max-width: 900px; /* Aumentado para mejor visualización lado a lado */
+    max-width: 900px; 
 }
 
 /* 3. Estilos del Reloj Grande */
@@ -32,16 +32,16 @@ body {
     text-align: center;
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #3d5167; /* Separador */
+    border-bottom: 2px solid #3d5167; 
     width: 100%;
 }
 
 #hora-actual {
-    font-family: 'Orbitron', monospace; /* Usar la fuente futurista */
-    font-size: 5rem; /* Reloj muy grande */
+    font-family: 'Orbitron', monospace; 
+    font-size: 5rem; 
     font-weight: 600;
-    color: #4CAF50; /* Color verde brillante para el reloj */
-    text-shadow: 0 0 10px rgba(76, 175, 80, 0.7); /* Efecto neón */
+    color: #4CAF50; 
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.7); 
     display: block; 
 }
 
@@ -59,23 +59,22 @@ body {
     width: 100%;
     margin-top: 20px;
     border-radius: 10px;
-    box-sizing: border-box; /* Importante para el layout lado a lado */
+    box-sizing: border-box; 
 }
 
 #clima-widget {
-    background-color: #3d5167; /* Fondo sutilmente diferente para el widget principal */
+    background-color: #3d5167; 
 }
 
-/* Estilo para el widget secundario de Sajaroff */
 .clima-secundario {
-    background-color: #2c3e50; /* Fondo más oscuro para distinguir */
+    background-color: #2c3e50; 
     border: 1px solid #e74c3c;
 }
 
 #ubicacion-nombre, #sajaroff-nombre {
     font-size: 1.6rem;
     margin-bottom: 5px;
-    color: #e74c3c; /* Color de énfasis para la ubicación */
+    color: #e74c3c; 
 }
 
 .clima-info {
@@ -86,14 +85,14 @@ body {
 }
 
 .temp-display {
-    font-size: 3rem; /* Temperatura destacada */
+    font-size: 3rem; 
     font-weight: bold;
     margin: 0;
     line-height: 1;
 }
 
 .clima-icon {
-    font-size: 3.5rem; /* El tamaño del ícono (emoji) */
+    font-size: 3.5rem; 
     margin-right: 15px;
     line-height: 1;
 }
@@ -119,7 +118,7 @@ body {
 
 .pronostico-extendido h4 {
     margin: 0 0 8px 0;
-    color: #f1c40f; /* Amarillo para el título del pronóstico */
+    color: #f1c40f; 
     font-weight: bold;
 }
 
@@ -132,14 +131,13 @@ body {
 .pronostico-extendido li {
     margin-bottom: 5px;
     color: #ecf0f1;
-    border-left: 3px solid #f1c40f; /* Detalle amarillo */
+    border-left: 3px solid #f1c40f; 
     padding-left: 8px;
 }
 
-/* 6. Media Query para pantallas grandes (Columna de Clima) */
+/* 6. Media Query para pantallas grandes (Doble columna) */
 @media (min-width: 650px) {
     #contenedor-principal {
-        /* Se mantiene en columna, pero ahora organizaremos el clima */
         flex-direction: column; 
     }
 
@@ -149,7 +147,7 @@ body {
         border-bottom: 2px solid #3d5167; 
     }
     
-    /* Nuevo contenedor para agrupar los dos widgets de clima */
+    /* Contenedor para colocar los widgets de clima uno al lado del otro */
     #widgets-clima-group {
         display: flex;
         justify-content: space-between;
@@ -158,179 +156,9 @@ body {
     }
 
     .clima-card {
-        flex: 1 1 48%; /* Ocupa el 48% para dejar espacio para el gap */
+        flex: 1 1 48%; 
         max-width: 48%;
-        margin: 0; /* Eliminamos el margin-top para que estén juntos */
-        border-top: none; /* Quitamos la línea superior repetida */
-    }
-}
-
-/* 7. Media Query para pantallas pequeñas */
-@media (max-width: 600px) {
-    #hora-actual {
-        font-size: 3.5rem;
-    }
-    .temp-display {
-        font-size: 2.5rem;
-    }
-    .clima-icon {
-        font-size: 3rem;
-    }
-}/* Archivo: style.css */
-
-/* 1. Reset Básico y Fondo */
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    min-height: 100vh;
-    background-color: #2c3e50; /* Fondo oscuro */
-    color: #ecf0f1; /* Texto claro */
-    font-family: 'Arial', sans-serif;
-    flex-direction: column;
-}
-
-/* 2. Contenedor Principal de los Widgets */
-#contenedor-principal {
-    display: flex;
-    flex-direction: column; /* Por defecto, en columna */
-    align-items: center;
-    padding: 30px;
-    background-color: #34495e;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-    width: 90%;
-    max-width: 700px;
-}
-
-/* 3. Estilos del Reloj Grande */
-#reloj-widget {
-    text-align: center;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #3d5167; /* Separador */
-    width: 100%;
-}
-
-#hora-actual {
-    font-family: 'Orbitron', monospace; /* Usar la fuente futurista */
-    font-size: 5rem; /* Reloj muy grande */
-    font-weight: 600;
-    color: #4CAF50; /* Color verde brillante para el reloj */
-    text-shadow: 0 0 10px rgba(76, 175, 80, 0.7); /* Efecto neón */
-    display: block; 
-}
-
-#fecha-actual {
-    font-size: 1.2rem;
-    color: #bdc3c7;
-    margin-top: -10px; 
-}
-
-/* 4. Estilos de los Widgets de Clima */
-.clima-card {
-    text-align: center;
-    padding: 20px;
-    border-top: 2px solid #3d5167; 
-    width: 100%;
-    margin-top: 20px;
-    border-radius: 10px;
-}
-
-#clima-widget {
-    background-color: #3d5167; /* Fondo sutilmente diferente para el widget principal */
-}
-
-/* Estilo para el widget secundario de Sajaroff */
-.clima-secundario {
-    background-color: #2c3e50; /* Fondo más oscuro para distinguir */
-    border: 1px solid #e74c3c;
-}
-
-#ubicacion-nombre, #sajaroff-nombre {
-    font-size: 1.6rem;
-    margin-bottom: 5px;
-    color: #e74c3c; /* Color de énfasis para la ubicación */
-}
-
-.clima-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-}
-
-.temp-display {
-    font-size: 3rem; /* Temperatura destacada */
-    font-weight: bold;
-    margin: 0;
-    line-height: 1;
-}
-
-.clima-icon {
-    font-size: 3.5rem; /* El tamaño del ícono (emoji) */
-    margin-right: 15px;
-    line-height: 1;
-}
-
-.clima-desc {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.viento-info {
-    font-size: 0.9rem;
-    color: #bdc3c7;
-}
-
-/* 5. Estilos para Pronóstico Extendido */
-.pronostico-extendido {
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px dashed #546a7f;
-    text-align: left;
-    font-size: 0.9rem;
-}
-
-.pronostico-extendido h4 {
-    margin: 0 0 8px 0;
-    color: #f1c40f; /* Amarillo para el título del pronóstico */
-    font-weight: bold;
-}
-
-.pronostico-extendido ul {
-    list-style: none;
-    padding: 0;
-    margin: 5px 0 0;
-}
-
-.pronostico-extendido li {
-    margin-bottom: 5px;
-    color: #ecf0f1;
-    border-left: 3px solid #f1c40f; /* Detalle amarillo */
-    padding-left: 8px;
-}
-
-/* 6. Media Query para pantallas grandes (Columna de Clima) */
-@media (min-width: 650px) {
-    #contenedor-principal {
-        flex-direction: row; /* En desktop, mostrar en fila */
-        flex-wrap: wrap;
-        justify-content: space-around;
-        gap: 20px;
-    }
-
-    #reloj-widget {
-        width: 100%;
-        margin-bottom: 30px;
-    }
-    
-    .clima-card {
-        flex: 1 1 45%; /* Cada widget ocupa casi la mitad */
-        max-width: 45%;
-        margin: 10px 0;
+        margin: 0; 
         border-top: none; 
     }
 }
@@ -347,4 +175,3 @@ body {
         font-size: 3rem;
     }
 }
-
